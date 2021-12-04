@@ -57,12 +57,6 @@ Type: `string`
 
 Can be `crc32` or any algorithm supported by `crypto.createHash(algorithmName)` of the current Node.js process.
 
-Run this to find out exactly what algorithms are available in your environment:
-
-```
-node -e "console.log(crypto.getHashes())"
-```
-
 #### Returns
 
 Promise that resolves with checksum hash.
@@ -86,12 +80,6 @@ Path to a file.
 Type: `string`
 
 Can be `crc32` or any algorithm supported by `crypto.createHash(algorithmName)` of the current Node.js process.
-
-Run this to find out exactly what algorithms are available in your environment:
-
-```
-node -e "console.log(crypto.getHashes())"
-```
 
 #### Returns
 
