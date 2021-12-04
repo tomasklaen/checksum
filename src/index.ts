@@ -1,9 +1,10 @@
 import * as FS from 'fs';
 import {createHash} from 'crypto';
 import * as Stream from 'stream';
+import {promisify} from 'util';
 
 const {CRC32Stream} = require('crc32-stream'); // No types
-const pipeline = Stream.promises.pipeline;
+const pipeline = promisify(Stream.pipeline);
 
 export const checksumFile = (path: string, algorithm: string) => checksum(FS.createReadStream(path), algorithm);
 
