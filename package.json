@@ -1,6 +1,6 @@
 {
 	"name": "@tomasklaen/checksum",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Checksum strings, buffers, streams, or file paths.",
 	"homepage": "https://github.com/tomasklaen/checksum",
 	"bugs": "https://github.com/tomasklaen/checksum/issues",
