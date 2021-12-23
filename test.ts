@@ -3,6 +3,8 @@ import * as Stream from 'stream';
 import {checksum, checksumFile} from './src/index';
 
 const fooCRC32 = '8c736521';
+const fooCRC32Base64 = 'jHNlIQ==';
+const fooCRC32Base64Url = 'jHNlIQ';
 
 test('checksum() should checksum strings', async (t) => {
 	t.is(await checksum('foo', 'crc32'), fooCRC32);
@@ -32,6 +34,15 @@ test('checksum() should use available algos', async (t) => {
 	);
 });
 
+test('checksum() should use passed encoding', async (t) => {
+	t.is(await checksum('foo', 'crc32', 'base64'), fooCRC32Base64);
+	t.is(await checksum('foo', 'crc32', 'base64url'), fooCRC32Base64Url);
+});
+
 test('checksumFile() should checksum files', async (t) => {
 	t.is(await checksumFile('fixtures/foo.txt', 'crc32'), fooCRC32);
+});
+
+test('checksumFile() should use passed encoding', async (t) => {
+	t.is(await checksumFile('fixtures/foo.txt', 'crc32', 'base64'), fooCRC32Base64);
 });

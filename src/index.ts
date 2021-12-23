@@ -6,11 +6,15 @@ import {promisify} from 'util';
 const {CRC32Stream} = require('crc32-stream'); // No types
 const pipeline = promisify(Stream.pipeline);
 
-export const checksumFile = (path: string, algorithm: string) => checksum(FS.createReadStream(path), algorithm);
+type Encoding = 'base64' | 'base64url' | 'hex';
+
+export const checksumFile = (path: string, algorithm: string, encoding?: Encoding) =>
+	checksum(FS.createReadStream(path), algorithm, encoding);
 
 export async function checksum(
 	input: string | Buffer | Uint8Array | Stream.Readable,
-	algorithm: string
+	algorithm: string,
+	encoding: Encoding = 'hex'
 ): Promise<string> {
 	const stream = toReadableStream(input);
 
@@ -21,13 +25,13 @@ export async function checksum(
 		hash.resume();
 		await pipe;
 		hash.end();
-		return hash.hex().toLowerCase();
+		return Buffer.from(hash.digest()).toString(encoding);
 	}
 
 	const hash = createHash(algorithm);
 	await pipeline(stream, hash);
 	hash.end();
-	return hash.digest('hex');
+	return hash.digest(encoding);
 }
 
 /**

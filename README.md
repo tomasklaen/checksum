@@ -42,7 +42,11 @@ Everything exported by the module:
 ### checksum
 
 ```ts
-function checksum(input: string | Buffer | Uint8Array | Stream.Readable, algorithm: string): Promise<string>;
+function checksum(
+	input: string | Buffer | Uint8Array | Stream.Readable,
+	algorithm: string,
+	encoding: 'base64' | 'base64url' | 'hex' = 'hex'
+): Promise<string>;
 ```
 
 Accepts `input`, and creates a checksum out of it using requested `algorithm`.
@@ -57,6 +61,13 @@ Type: `string`
 
 Can be `crc32` or any algorithm supported by `crypto.createHash(algorithmName)` of the current Node.js process.
 
+#### `encoding`
+
+Type: `'base64' | 'base64url' | 'hex'` _optional_
+Default: `hex`
+
+What encoding should the checksum be digested into. Default is `hex`.
+
 #### Returns
 
 Promise that resolves with checksum hash.
@@ -64,7 +75,11 @@ Promise that resolves with checksum hash.
 ### checksumFile
 
 ```ts
-function checksumFile(path: string, algorithm: string): Promise<string>;
+function checksumFile(
+	path: string,
+	algorithm: string,
+	encoding: 'base64' | 'base64url' | 'hex' = 'hex'
+): Promise<string>;
 ```
 
 Accepts file `path`, and creates a checksum of it using requested `algorithm`.
@@ -80,6 +95,13 @@ Path to a file.
 Type: `string`
 
 Can be `crc32` or any algorithm supported by `crypto.createHash(algorithmName)` of the current Node.js process.
+
+#### `encoding`
+
+Type: `'base64' | 'base64url' | 'hex'` _optional_
+Default: `hex`
+
+What encoding should the checksum be digested into. Default is `hex`.
 
 #### Returns
 
